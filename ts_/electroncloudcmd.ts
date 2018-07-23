@@ -15,7 +15,7 @@ export class ElectronCloudcmd
         return this._commanderProcess;
     }
 
-    public static InitCommanderProcess(pathCommander: string, args?:Array<string>): void 
+    public static InitCommanderProcess(pathCommander: string, args?:Array<string>, cb?: (error: Error, url: URL) => void) : void 
     {
         let self = this;
         if (this._commanderProcess != null) this._commanderProcess.kill();
@@ -38,9 +38,11 @@ export class ElectronCloudcmd
                 try 
                 {
                     self._url = self.findURL(`${data}`);
+                    if (cb != undefined) cb(null, self._url);
                 }
                 catch (error) 
                 {
+                    if (cb != undefined) cb(error, null);
                     if (this.stdout != null) this.stdout(error);     
                 }    
             }            
@@ -59,6 +61,7 @@ export class ElectronCloudcmd
         this._commanderProcess.disconnect();
         this.stderr = null; this.stdout = null;
         this._commanderProcess.removeAllListeners();
+        this._commanderProcess = null;
     }
 
     private static findURL(data: string) : URL 
