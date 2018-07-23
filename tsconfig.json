@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+      "target": "es5",
+        "watch": false,
+        "sourceMap": true,
+        "outDir": "./js",
+        "declaration": true,
+        "diagnostics": true,
+        "module": "commonjs",
+        "noImplicitAny": false,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "moduleResolution": "node",
+        "suppressImplicitAnyIndexErrors": true
+    },
+    "exclude": [
+        "js/**/*",
+        "node_modules/**/*"
+    ],
+    "include": [ "ts_/**/*" ],
+    "compileOnSave": true
+}
