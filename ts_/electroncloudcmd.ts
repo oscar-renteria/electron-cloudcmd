@@ -1,5 +1,6 @@
 
 import { ChildProcess, fork, ForkOptions } from 'child_process';
+const urlRegexExp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
 
 export class ElectronCloudcmd
 {
@@ -32,7 +33,7 @@ export class ElectronCloudcmd
         this._commanderProcess = fork('cloudcmd.js', args, frokOptions);
         this._commanderProcess.stdout.on('data', (data) => 
         { 
-            // Parse url where the server has started:
+            // Parse the url where the server has started:
             if (self._url == null) 
             {
                 try 
@@ -66,10 +67,9 @@ export class ElectronCloudcmd
 
     private static findURL(data: string) : URL 
     {
-        var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-        var address = data.match(exp); 
-        
+        let address: RegExpMatchArray = data.match(urlRegexExp); 
         let nV: number = Number((process.version).split('.')[0].substr(1,1));
+        
         if (nV <= 6) 
         {
             const url = require('url');

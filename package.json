@@ -1,7 +1,7 @@
 {
   "name": "electron-cloudcmd",
-  "version": "1.0.0",
-  "description": "Forks a cloudcmd server together with an Electron app",
+  "version": "1.0.1",
+  "description": "Forks a cloudcmd server from a node or electron main process.",
   "main": "index.js",
   "scripts": {
     "build": "gulp build",
@@ -20,7 +20,7 @@
     "server"
   ],
   "author": "Óscar J. Rentería Quevedo",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "devDependencies": {
     "@types/chai": "^4.1.4",
     "@types/mocha": "^5.2.5",
@@ -32,7 +32,7 @@
     "mocha": "^5.2.0",
     "run-sequence": "^2.2.1",
     "ts-node": "^7.0.0",
-    "typescript": "^2.9.2"
+    "typescript": "^3.0.1"
   },
   "dependencies": {
     "cloudcmd": "^10.4.1"

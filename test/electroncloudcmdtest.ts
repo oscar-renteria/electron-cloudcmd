@@ -1,6 +1,5 @@
 import * as path from 'path';
 import * as chai from 'chai';
-import * as mocha from 'mocha';
 import { ElectronCloudcmd } from '../ts_/electroncloudcmd'
 
 export default class ElectronCloudcmdTest 

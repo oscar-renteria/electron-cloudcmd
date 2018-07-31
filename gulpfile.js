@@ -1,6 +1,6 @@
 var gulp = require('gulp');
-var runSequence = require('run-sequence');
 var rimraf = require('gulp-rimraf');
+var runSequence = require('run-sequence');
 
 var outputDir = 'js';
 gulp.task('clean', cb => { return gulp.src(outputDir).pipe(rimraf()); });
