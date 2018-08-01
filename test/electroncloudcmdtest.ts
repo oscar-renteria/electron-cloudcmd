@@ -18,8 +18,7 @@ export default class ElectronCloudcmdTest
                 }
 
                 let args = ['--progress', '--no-contact', '--no-online', '--port', port];
-                let pathCommander = path.join(__dirname, '../node_modules/cloudcmd/bin');
-                ElectronCloudcmd.InitCommanderProcess(pathCommander, args, (err, url) => 
+                ElectronCloudcmd.InitCommanderProcess(args, (err, url) => 
                 {
                     if (err != null) done(err);
 
@@ -40,8 +39,7 @@ export default class ElectronCloudcmdTest
                 }
              
                 let args = ['--progress', '--no-contact', '--no-online', '--port', '0'];
-                let pathCommander = path.join(__dirname, '../node_modules/cloudcmd/bin');
-                ElectronCloudcmd.InitCommanderProcess(pathCommander, args, (err, url) => 
+                ElectronCloudcmd.InitCommanderProcess(args, (err, url) => 
                 {
                     if (err != null) done(err);
 
