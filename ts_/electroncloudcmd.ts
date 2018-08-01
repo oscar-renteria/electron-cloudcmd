@@ -21,19 +21,16 @@ export class ElectronCloudcmd
     {
         let self = this;
         if (this._commanderProcess != null) this._commanderProcess.kill();
-        let execPath = path.dirname( require.resolve('cloudcmd/package.json'));
+        let execPath = path.join(path.dirname( require.resolve('cloudcmd/package.json')), '../cloudcmd/bin', 'cloudcmd.js');
 
         let frokOptions: ForkOptions = 
         {
             silent: true,
             env: { ATOM_SHELL_INTERNAL_RUN_AS_NODE:0 },
-            cwd: path.join(execPath, '../cloudcmd/bin'),
         };
         
         // Check if the file exists in the current directory.
-        let fileName = 'cloudcmd.js';
-        let fullPath = path.join(frokOptions.cwd, fileName);
-        fs.access(fullPath, fs.constants.F_OK, (err) => 
+        fs.access(execPath, fs.constants.F_OK, (err) => 
         {
             if (err) 
             {
@@ -43,7 +40,7 @@ export class ElectronCloudcmd
             
             try 
             {
-                this._commanderProcess = fork('cloudcmd.js', args, frokOptions);
+                this._commanderProcess = fork(execPath, args, frokOptions);
             }
             catch(error) 
             {
