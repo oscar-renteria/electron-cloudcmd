@@ -1,4 +1,5 @@
-
+import * as fs from 'fs';
+import * as path from 'path';
 import { ChildProcess, fork, ForkOptions } from 'child_process';
 const urlRegexExp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
 
@@ -30,29 +31,50 @@ export class ElectronCloudcmd
             }
         };
         
-        this._commanderProcess = fork('cloudcmd.js', args, frokOptions);
-        this._commanderProcess.stdout.on('data', (data) => 
-        { 
-            // Parse the url where the server has started:
-            if (self._url == null) 
+        // Check if the file exists in the current directory.
+        let fileName = 'cloudcmd.js';
+        let fullPath = path.join(pathCommander, fileName);
+        fs.access(fullPath, fs.constants.F_OK, (err) => 
+        {
+            if (err) 
             {
-                try 
+                cb(err, null);
+                return;
+            }
+            
+            try 
+            {
+                this._commanderProcess = fork('cloudcmd.js', args, frokOptions);
+            }
+            catch(error) 
+            {
+                cb(err, null);
+                return;
+            }
+            
+            this._commanderProcess.stdout.on('data', (data) => 
+            { 
+                // Parse the url where the server has started:
+                if (self._url == null) 
                 {
-                    self._url = self.findURL(`${data}`);
-                    if (cb != undefined) cb(null, self._url);
-                }
-                catch (error) 
-                {
-                    if (cb != undefined) cb(error, null);
-                    if (this.stdout != null) this.stdout(error);     
-                }    
-            }            
-             
-            if (this.stdout != null) this.stdout(data); 
-        });
+                    try 
+                    {
+                        self._url = self.findURL(`${data}`);
+                        if (cb != undefined) cb(null, self._url);
+                    }
+                    catch (error) 
+                    {
+                        if (cb != undefined) cb(error, null);
+                        if (this.stdout != null) this.stdout(error);     
+                    }    
+                }            
+                
+                if (this.stdout != null) this.stdout(data); 
+            });
 
-        this._commanderProcess.stderr.on('data', (data) => { if (this.stderr != null) this.stderr(data); });
-        this._commanderProcess.unref();
+            this._commanderProcess.stderr.on('data', (data) => { if (this.stderr != null) this.stderr(data); });
+            this._commanderProcess.unref();
+        });
     }
 
     public static KillProcess(message?: string) : void 
