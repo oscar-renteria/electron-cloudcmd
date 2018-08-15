@@ -1,6 +1,6 @@
 {
   "name": "electron-cloudcmd",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Forks a cloudcmd server from a node or electron main process.",
   "main": "index.js",
   "scripts": {
@@ -35,6 +35,6 @@
     "typescript": "^3.0.1"
   },
   "dependencies": {
-    "cloudcmd": "^10.4.1"
+    "cloudcmd": "10.3.2"
   }
 }
