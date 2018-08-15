@@ -50,7 +50,7 @@ export class ElectronCloudcmd
             
             this._commanderProcess.stdout.on('data', (data) => 
             { 
-                // Parse the url where the server has started:
+                // Parse the url where the server started:
                 if (self._url == null) 
                 {
                     try 
